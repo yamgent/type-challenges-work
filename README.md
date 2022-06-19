@@ -13,3 +13,11 @@ yarn watch 00013-warm-hello-world.ts
 # one-time verification of your answer
 yarn build 00013-warm-hello-world.ts
 ```
+
+### Verifying All Attempts
+
+This will only check files that have been attempted. Files that are not touched (i.e. same as the original question's `template.ts`) will be ignored.
+
+```sh
+yarn testAll
+```

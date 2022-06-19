@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "tsc --noEmit",
-    "watch": "tsc --watch --noEmit"
+    "watch": "tsc --watch --noEmit",
+    "testAll": "node scripts/testAll.mjs"
   },
   "dependencies": {
     "typescript": "*",
