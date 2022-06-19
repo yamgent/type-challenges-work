@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import childProcess from "child_process";
+import process from "process";
 
 const STATUS_PASSED = "PASSED";
 const STATUS_FAILED = "FAILED";
@@ -25,12 +26,17 @@ function runTest(name) {
   });
 }
 
-async function initDashboard() {
+async function initDashboard(level = undefined) {
   const questionDir = path.resolve("./type-challenges/questions");
   await Promise.all(
-    fs.readdirSync(questionDir).map(async (file) => {
-      dashboard[file] = (await runTest(file))[0];
-    })
+    fs
+      .readdirSync(questionDir)
+      .filter((file) => {
+        return !level || file.split("-")[1] === level;
+      })
+      .map(async (file) => {
+        dashboard[file] = (await runTest(file))[0];
+      })
   );
   longestNameLength = Math.max(...Object.keys(dashboard).map((k) => k.length));
 }
@@ -57,6 +63,10 @@ function printDashboard() {
   });
 
   Object.keys(sorted).forEach((key) => {
+    if (sorted[key].length === 0) {
+      return;
+    }
+
     sorted[key].sort((a, b) => a[0].localeCompare(b[0]));
 
     console.log(`=== ${key} ===`);
@@ -81,7 +91,11 @@ function printDashboard() {
 }
 
 async function main() {
-  await initDashboard();
+  if (process.argv.length === 3) {
+    await initDashboard(process.argv[2]);
+  } else {
+    await initDashboard();
+  }
   printDashboard();
 }
 

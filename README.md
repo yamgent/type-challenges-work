@@ -37,7 +37,16 @@ yarn testAll
 
 ### Status of All Questions
 
-You can check the status of all questions by running `yarn status`.
+You can check the status of all questions by running `yarn status <level>`.
+
+Level values:
+
+- None (Shows everything)
+- `warm`
+- `easy`
+- `medium`
+- `hard`
+- `extreme`
 
 Legends:
 
@@ -46,7 +55,11 @@ Legends:
 - '.': File is not present
 
 ```sh
+# shows everything
 yarn status
+
+# shows easy
+yarn status easy
 ```
 
 ### Fetching type-challenges Updates + Other Package Updates
