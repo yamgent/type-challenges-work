@@ -4,9 +4,14 @@
 
 ### Attempting a Question
 
+When starting a new question, use `yarn reset`, which will automatically spawn the boilerplate to your working directory.
+
 You can use `yarn watch` or `yarn test` to check whether your answer passed or not.
 
 ```sh
+# use this to start a new question
+yarn reset 00013-warm-hello-world.ts
+
 # use this to ask tsc to watch your changes
 yarn watch 00013-warm-hello-world.ts
 

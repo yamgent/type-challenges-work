@@ -1,6 +1,7 @@
 import process from "process";
 import fs from "fs";
-import { getEmptyTemplate } from "./lib.mjs";
+import path from "path";
+import { stripExt, getEmptyTemplate } from "./lib.mjs";
 
 async function main() {
   if (process.argv.length !== 3) {
@@ -10,8 +11,17 @@ async function main() {
 
   const tsfile = process.argv[2];
 
-  if (!fs.existsSync(tsfile)) {
-    console.log(`${tsfile} does not exist.`);
+  if (!tsfile.endsWith(".ts")) {
+    console.log(`${tsfile} is not a ts extension`);
+    process.exit(1);
+  }
+
+  if (
+    !fs.existsSync(
+      path.resolve("./type-challenges/questions", stripExt(tsfile))
+    )
+  ) {
+    console.log(`${stripExt(tsfile)} is not a proper question.`);
     process.exit(1);
   }
 

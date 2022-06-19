@@ -4,7 +4,7 @@ import path from "path";
 const ANSWER_START = "/* ----- Your Answer (START) ----- */";
 const ANSWER_END = "/* ----- Your Answer (END) ----- */";
 
-function stripExt(filename) {
+export function stripExt(filename) {
   const dotIndex = filename.lastIndexOf(".");
 
   if (dotIndex === -1) {
