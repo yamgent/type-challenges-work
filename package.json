@@ -1,0 +1,13 @@
+{
+  "name": "type-challenges-work",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc --noEmit",
+    "watch": "tsc --watch --noEmit"
+  },
+  "dependencies": {
+    "typescript": "*",
+    "@type-challenges/utils": "./type-challenges/utils"
+  }
+}
