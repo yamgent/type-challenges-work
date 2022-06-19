@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "watch": "tsc --watch --noEmit",
+    "status": "node scripts/status.mjs",
     "test": "tsc --noEmit",
     "testAll": "node scripts/testAll.mjs",
     "reset": "node scripts/reset.mjs",

@@ -35,6 +35,20 @@ This will only check files that have been attempted. Files that are not touched 
 yarn testAll
 ```
 
+### Status of All Questions
+
+You can check the status of all questions by running `yarn status`.
+
+Legends:
+
+- `O`: Test passed
+- `X`: Test failed (including no attempt)
+- '.': File is not present
+
+```sh
+yarn status
+```
+
 ### Fetching type-challenges Updates + Other Package Updates
 
 To update typescript / type-challenges questions, run `yarn pullUpstream`. You can then try to run `yarn testAll` to see if there's any broken answers after the upgrade.
