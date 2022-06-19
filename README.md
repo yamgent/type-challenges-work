@@ -29,3 +29,11 @@ This will only check files that have been attempted. Files that are not touched 
 ```sh
 yarn testAll
 ```
+
+### Fetching type-challenges Updates + Other Package Updates
+
+To update typescript / type-challenges questions, run `yarn refresh`. You can then try to run `yarn testAll` to see if there's any broken answers after the upgrade.
+
+```sh
+yarn refresh
+```

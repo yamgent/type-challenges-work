@@ -6,10 +6,11 @@
     "build": "tsc --noEmit",
     "watch": "tsc --watch --noEmit",
     "testAll": "node scripts/testAll.mjs",
-    "reset": "node scripts/reset.mjs"
+    "reset": "node scripts/reset.mjs",
+    "refresh": "node scripts/refresh.mjs"
   },
   "dependencies": {
-    "typescript": "*",
-    "@type-challenges/utils": "./type-challenges/utils"
+    "@type-challenges/utils": "./type-challenges/utils",
+    "typescript": "*"
   }
 }

@@ -72,18 +72,58 @@ function getQuestionDefaultContent(tsfile) {
   return { questionAsked, questionTemplate, questionTestCases };
 }
 
+function formatAnswerFile({ asked, answer, testCases }) {
+  return `${asked}
+
+${ANSWER_START}
+
+${answer}
+
+${ANSWER_END}
+
+${testCases}
+`;
+}
+
 export function getEmptyTemplate(tsfile) {
   const { questionAsked, questionTemplate, questionTestCases } =
     getQuestionDefaultContent(tsfile);
 
-  return `${questionAsked}
+  return formatAnswerFile({
+    asked: questionAsked,
+    answer: questionTemplate,
+    testCases: questionTestCases,
+  });
+}
 
-${ANSWER_START}
+function extractExistingAnswer(tsfile) {
+  const content = fs.readFileSync(tsfile, { encoding: "utf-8" });
 
-${questionTemplate}
+  let startIndex = content.indexOf(ANSWER_START);
+  if (startIndex === -1) {
+    throw new Error(`Cannot find "${ANSWER_START}" for ${tsfile}`);
+  }
+  startIndex += ANSWER_START.length;
 
-${ANSWER_END}
+  const endIndex = content.indexOf(ANSWER_END);
+  if (endIndex === -1) {
+    throw new Error(`Cannot find "${ANSWER_END}" for ${tsfile}`);
+  }
 
-${questionTestCases}
-`;
+  return content.substring(startIndex, endIndex).trim();
+}
+
+export function updateExistingAnswerFile(tsfile) {
+  const { questionAsked, questionTestCases } =
+    getQuestionDefaultContent(tsfile);
+  const existingAnswer = extractExistingAnswer(tsfile);
+
+  fs.writeFileSync(
+    tsfile,
+    formatAnswerFile({
+      asked: questionAsked,
+      answer: existingAnswer,
+      testCases: questionTestCases,
+    })
+  );
 }
