@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
 
+const ANSWER_START = "/* ----- Your Answer (START) ----- */";
+const ANSWER_END = "/* ----- Your Answer (END) ----- */";
+
 function stripExt(filename) {
   const dotIndex = filename.lastIndexOf(".");
 
@@ -11,7 +14,7 @@ function stripExt(filename) {
   return filename.substring(0, dotIndex);
 }
 
-function extractQuestion(questionMdFilePath) {
+function generateQuestionAsked(questionMdFilePath) {
   const content = fs.readFileSync(questionMdFilePath, { encoding: "utf-8" });
   const startComment = "<!--info-header-end-->";
   const endComment = "<!--info-footer-start-->";
@@ -27,10 +30,24 @@ function extractQuestion(questionMdFilePath) {
     throw new Error(`Cannot find ${endComment} in ${questionMdFilePath}`);
   }
 
-  return content.substring(startIndex, endIndex).trim();
+  return `/*
+${content.substring(startIndex, endIndex).trim()}
+*/`;
 }
 
-export function getEmptyTemplate(tsfile) {
+function generateQuestionTemplate(questionTemplateFilePath) {
+  return fs
+    .readFileSync(questionTemplateFilePath, { encoding: "utf-8" })
+    .trim();
+}
+
+function generateQuestionTestCases(questionTestCasesFilePath) {
+  return fs
+    .readFileSync(questionTestCasesFilePath, { encoding: "utf-8" })
+    .trim();
+}
+
+function getQuestionDefaultContent(tsfile) {
   const questionDir = path.resolve(
     "./type-challenges/questions",
     stripExt(tsfile)
@@ -40,32 +57,32 @@ export function getEmptyTemplate(tsfile) {
     throw new Error(`Cannot find question ${stripExt(tsfile)}`);
   }
 
-  const questionContent = `/*
-${extractQuestion(path.resolve(questionDir, "README.md"))}
-*/`;
-  const answerStart = "/* ----- Your Answer (START) ----- */";
+  const questionAsked = generateQuestionAsked(
+    path.resolve(questionDir, "README.md")
+  );
 
-  const questionTemplate = fs
-    .readFileSync(path.resolve(questionDir, "template.ts"), {
-      encoding: "utf-8",
-    })
-    .trim();
+  const questionTemplate = generateQuestionTemplate(
+    path.resolve(questionDir, "template.ts")
+  );
 
-  const answerEnd = "/* ----- Your Answer (END) ----- */";
+  const questionTestCases = generateQuestionTestCases(
+    path.resolve(questionDir, "test-cases.ts")
+  );
 
-  const questionTestCases = fs
-    .readFileSync(path.resolve(questionDir, "test-cases.ts"), {
-      encoding: "utf-8",
-    })
-    .trim();
+  return { questionAsked, questionTemplate, questionTestCases };
+}
 
-  return `${questionContent}
+export function getEmptyTemplate(tsfile) {
+  const { questionAsked, questionTemplate, questionTestCases } =
+    getQuestionDefaultContent(tsfile);
 
-${answerStart}
+  return `${questionAsked}
+
+${ANSWER_START}
 
 ${questionTemplate}
 
-${answerEnd}
+${ANSWER_END}
 
 ${questionTestCases}
 `;
