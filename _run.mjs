@@ -3,7 +3,7 @@ import path from "path";
 import childProcess from "child_process";
 import { setupRunnerFoundation, collate, RUNNER_REL_DIR } from "./_lib.mjs";
 
-async function runRunnerTscCompile() {
+async function runRunnerSingleTscCompile() {
   const runnerDir = path.resolve(RUNNER_REL_DIR);
   childProcess.spawn("yarn", ["tsc", "index.ts"], {
     cwd: runnerDir,
@@ -24,7 +24,7 @@ async function main() {
 
   await setupRunnerFoundation();
   await collate(tsfile);
-  runRunnerTscCompile();
+  runRunnerSingleTscCompile();
 }
 
 main();

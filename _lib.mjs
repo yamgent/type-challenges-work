@@ -92,3 +92,9 @@ ${fs.readFileSync(path.resolve(questionDir, "test-cases.ts"), {
   const collateDestPath = path.resolve(RUNNER_REL_DIR, "index.ts");
   fs.writeFileSync(collateDestPath, collatedContent);
 }
+
+export function getTsAnswerFilesList() {
+  return fs
+    .readdirSync(path.resolve("."))
+    .filter((file) => file.endsWith(TS_EXT));
+}
