@@ -1,0 +1,3 @@
+[submodule "type-challenges"]
+	path = type-challenges
+	url = git@github.com:type-challenges/type-challenges.git
