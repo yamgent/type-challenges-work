@@ -72,20 +72,16 @@ async function main() {
       });
   }
 
+  if (failedCount === 0 && ignoredCount === 0) {
+    console.log(`    All ok (${result.length} total)`);
+    return;
+  }
+
+  console.log(`   FAILURE!!!`);
   console.log(
-    `    ${
-      failedCount > 0 ? `${failedCount} FAILED!!!` : "All ok"
-    } (${ignoredCount} no attempt, ${result.length} total)`
+    `   ${failedCount} failed, ${ignoredCount} no attempt (${result.length} total)`
   );
-
-  if (ignoredCount === result.length) {
-    console.log("    Note: Everything not attempted.");
-    process.exit(2);
-  }
-
-  if (failedCount > 0) {
-    process.exit(1);
-  }
+  process.exit(1);
 }
 
 main();
