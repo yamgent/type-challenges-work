@@ -20,7 +20,7 @@ Click the `Take the Challenge` button to start coding! Happy Hacking!
 
 /* ----- Your Answer (START) ----- */
 
-type HelloWorld = any // expected to be a string
+type HelloWorld = string
 
 /* ----- Your Answer (END) ----- */
 
