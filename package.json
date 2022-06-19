@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "watch": "tsc --watch --noEmit",
+    "watch": "tsc --watch --noEmit --strict",
     "watchAll": "node scripts/watchAll.mjs",
-    "test": "tsc --noEmit",
+    "test": "tsc --noEmit --strict",
     "testAll": "node scripts/testAll.mjs",
     "reset": "node scripts/reset.mjs",
     "pullUpstream": "node scripts/pullUpstream.mjs"

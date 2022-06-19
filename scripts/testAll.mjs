@@ -1,7 +1,6 @@
 import fs from "fs";
 import process from "process";
-import childProcess from "child_process";
-import { getEmptyTemplate } from "./lib.mjs";
+import { getEmptyTemplate, spawnTsc } from "./lib.mjs";
 
 const STATUS_OK = "OK";
 const STATUS_FAILED = "FAILED";
@@ -19,7 +18,7 @@ function checkAnswer(tsfile) {
     };
   }
 
-  const tsc = childProcess.spawn("yarn", ["tsc", "--noEmit", tsfile]);
+  const tsc = spawnTsc(tsfile);
   const output = [];
 
   tsc.stdout.on("data", (data) => {

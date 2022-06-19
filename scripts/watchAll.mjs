@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
-import childProcess from "child_process";
 import process from "process";
-import { stripExt } from "./lib.mjs";
+import { spawnTsc, stripExt } from "./lib.mjs";
 
 const STATUS_PASSED = "PASSED";
 const STATUS_FAILED = "FAILED";
@@ -18,8 +17,7 @@ function runTest(name) {
     return Promise.resolve([STATUS_DOES_NOT_EXIST, []]);
   }
 
-  // TODO: Code below
-  const p = childProcess.spawn("yarn", ["tsc", "--noEmit", tsfile]);
+  const p = spawnTsc(tsfile);
 
   return new Promise((resolve) => {
     p.on("close", (code) => {

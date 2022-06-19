@@ -1,8 +1,13 @@
 import fs from "fs";
 import path from "path";
+import childProcess from "child_process";
 
 const ANSWER_START = "/* ----- Your Answer (START) ----- */";
 const ANSWER_END = "/* ----- Your Answer (END) ----- */";
+
+export function spawnTsc(tsfile) {
+  return childProcess.spawn("yarn", ["tsc", "--noEmit", "--strict", tsfile]);
+}
 
 export function stripExt(filename) {
   const dotIndex = filename.lastIndexOf(".");
