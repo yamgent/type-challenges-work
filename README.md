@@ -4,14 +4,14 @@
 
 ### Attempting a Question
 
-You can use `yarn watch` or `yarn build` to check whether your answer passed or not.
+You can use `yarn watch` or `yarn test` to check whether your answer passed or not.
 
 ```sh
 # use this to ask tsc to watch your changes
 yarn watch 00013-warm-hello-world.ts
 
 # one-time verification of your answer
-yarn build 00013-warm-hello-world.ts
+yarn test 00013-warm-hello-world.ts
 ```
 
 ### Reset an Attempt
@@ -32,8 +32,8 @@ yarn testAll
 
 ### Fetching type-challenges Updates + Other Package Updates
 
-To update typescript / type-challenges questions, run `yarn refresh`. You can then try to run `yarn testAll` to see if there's any broken answers after the upgrade.
+To update typescript / type-challenges questions, run `yarn pullUpstream`. You can then try to run `yarn testAll` to see if there's any broken answers after the upgrade.
 
 ```sh
-yarn refresh
+yarn pullUpstream
 ```

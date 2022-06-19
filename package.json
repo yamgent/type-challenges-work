@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc --noEmit",
     "watch": "tsc --watch --noEmit",
+    "test": "tsc --noEmit",
     "testAll": "node scripts/testAll.mjs",
     "reset": "node scripts/reset.mjs",
-    "refresh": "node scripts/refresh.mjs"
+    "pullUpstream": "node scripts/pullUpstream.mjs"
   },
   "dependencies": {
     "@type-challenges/utils": "./type-challenges/utils",
