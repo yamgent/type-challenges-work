@@ -37,7 +37,7 @@ yarn testAll
 
 ### Status of All Questions
 
-You can check the status of all questions by running `yarn status <level>`.
+You can check the status of all questions by running `yarn watchAll <level>`. This is a watch mode behaviour so it will detect changes to your answer on the fly.
 
 Level values:
 
@@ -56,10 +56,10 @@ Legends:
 
 ```sh
 # shows everything
-yarn status
+yarn watchAll
 
 # shows easy
-yarn status easy
+yarn watchAll easy
 ```
 
 ### Fetching type-challenges Updates + Other Package Updates

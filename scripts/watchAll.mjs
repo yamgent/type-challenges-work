@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import childProcess from "child_process";
 import process from "process";
+import { stripExt } from "./lib.mjs";
 
 const STATUS_PASSED = "PASSED";
 const STATUS_FAILED = "FAILED";
@@ -9,6 +10,7 @@ const STATUS_DOES_NOT_EXIST = "DOES_NOT_EXIST";
 
 const dashboard = {};
 let longestNameLength = 1;
+const changed = new Set();
 
 function runTest(name) {
   const tsfile = `${name}.ts`;
@@ -90,13 +92,44 @@ function printDashboard() {
   });
 }
 
-async function main() {
-  if (process.argv.length === 3) {
-    await initDashboard(process.argv[2]);
-  } else {
-    await initDashboard();
-  }
+async function updateDashboard() {
+  console.log("Updating...");
+  console.log();
+
+  await Promise.all(
+    Array.from(changed).map(async (file) => {
+      dashboard[file] = (await runTest(file))[0];
+    })
+  );
+
+  changed.clear();
   printDashboard();
+}
+
+async function main() {
+  let level = undefined;
+
+  if (process.argv.length === 3) {
+    level = process.argv[2];
+  }
+
+  await initDashboard(level);
+  printDashboard();
+
+  let debounceTimeoutId;
+
+  fs.watch(".", (_, filename) => {
+    const name = stripExt(filename);
+    if (name in dashboard && !changed.has(name)) {
+      changed.add(name);
+
+      if (debounceTimeoutId) {
+        clearTimeout(debounceTimeoutId);
+      }
+
+      debounceTimeoutId = setTimeout(() => updateDashboard(), 2000);
+    }
+  });
 }
 
 main();
