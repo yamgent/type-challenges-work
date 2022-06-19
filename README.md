@@ -14,6 +14,14 @@ yarn watch 00013-warm-hello-world.ts
 yarn build 00013-warm-hello-world.ts
 ```
 
+### Reset an Attempt
+
+You can use `yarn reset` to reset a question's attempt.
+
+```sh
+yarn reset 00013-warm-hello-world.ts
+```
+
 ### Verifying All Attempts
 
 This will only check files that have been attempted. Files that are not touched (i.e. same as the original question's `template.ts`) will be ignored.

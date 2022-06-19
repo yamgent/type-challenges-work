@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc --noEmit",
     "watch": "tsc --watch --noEmit",
-    "testAll": "node scripts/testAll.mjs"
+    "testAll": "node scripts/testAll.mjs",
+    "reset": "node scripts/reset.mjs"
   },
   "dependencies": {
     "typescript": "*",
